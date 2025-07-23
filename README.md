@@ -7,7 +7,7 @@ A lightweight Python audio player built with `pygame`, `tkinter`, and `customtki
 ## 🚀 Features
 
 - Simple and minimal interface
-- Load and play `.mp3` or `.wav` files
+- Load and play `.mp3` files
 - Built with Python and open-source libraries
 - Available as standalone `.exe` (no Python required)
 
@@ -22,3 +22,5 @@ A lightweight Python audio player built with `pygame`, `tkinter`, and `customtki
 3. Run the following command:
    ```
    pip install -r path/to/your/directory/requirements.txt
+   ```
+### Option 2: Download the .exe from [releases(https://github.com/Gato-Chamuscador/mediaplayerheckyeah)]
