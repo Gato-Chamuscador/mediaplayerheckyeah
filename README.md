@@ -3,7 +3,7 @@
 A lightweight python audio player made with pygame
 
 ## HOW TO INSTALL (2 options)
-### first option(advanced)
+### First option(advanced)
 Download this repository
 Open a powershell and paste `pip install -r path/to/your/directory/requirements.txt`
 >remember to replace the `path/to/your/directory` with the actual directory where you have downloaded the reposotory and make sure you have the latest version of python installed
