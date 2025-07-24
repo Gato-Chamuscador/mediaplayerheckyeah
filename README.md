@@ -21,7 +21,7 @@ A lightweight Python audio player built with `pygame`, `tkinter`, and `customtki
 2. Open a terminal or PowerShell window
 3. Run the following command:
    ```
-   python<version> pip install -r path/to/your/directory/requirements.txt
+   python3 pip install -r path/to/your/directory/requirements.txt
    ```
 ### Option 2: Download the .exe from [releases](https://github.com/Gato-Chamuscador/mediaplayerheckyeah/releases/tag/audioplayer)
 >[!WARNING]
