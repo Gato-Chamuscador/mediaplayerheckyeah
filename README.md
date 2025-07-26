@@ -1,39 +1,14 @@
 # 🎵 MEDIAPLAYERHECKYEAH
 
-A lightweight Python audio player built with `pygame`, `tkinter`, and `customtkinter`.
+A lightweight python audio player made with pygame
 
----
+## HOW TO INSTALL (2 options)
+### First option(advanced)
+Download this repository
+Open a powershell and paste `pip install -r path/to/your/directory/requirements.txt`
+>remember to replace the `path/to/your/directory` with the actual directory where you have downloaded the reposotory and make sure you have the latest version of python installed
 
-## 🚀 Features
+Open the file main.py with the python interpreter
 
-- Simple and minimal interface
-- Load and play `.mp3` files
-- Built with Python and open-source libraries
-- Available as standalone `.exe` (no Python required)
-
----
-
-## 🛠️ Installation Options
-
-### Option 1: Run from source (for developers)
-
-1. **Download this repository**
-2. Open a terminal or PowerShell window
-3. Run the following command:
-   ```
-   python3 pip install -r path/to/your/directory/requirements.txt
-   ```
-### Option 2: Download the .exe from [releases](https://github.com/Gato-Chamuscador/mediaplayerheckyeah/releases/tag/audioplayer)
->[!WARNING]
->Currently the .exe is not working, i will update the app with more features and fix it
->[!NOTE]
->I'm working in the .exe release, soon it will work
-
----
-## 🎈 Features comming soon
-
-- [x] Progress bar
-- [ ] Search for files in a directory
-- [ ] Move forward/backwards on audio
-- [ ] Redesign UI (Make it more minimalistic)
-- [ ] Bug fixes 
+### Second option(easy)
+Download the executable from the [releases](https://github.com/Gato-Chamuscador/mediaplayerheckyeah/releases/tag/audioplayer)
