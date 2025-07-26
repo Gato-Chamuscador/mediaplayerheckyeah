@@ -40,10 +40,10 @@ A lightweight Python audio player built with `pygame`, `tkinter`, and `customtki
 ---
 ## 🎈 Features comming soon
 
-- [ x ] Progress bar
+- [x] Progress bar
 - [ ] Search for files in a directory
-- [ x ] Move forward/backwards on audio
+- [x] Move forward/backwards on audio
 - [ ] Redesign UI (Make it more minimalistic)
-- [ x ] Bug fixes 
+- [x] Bug fixes 
 - [ ] .exe in releases
 
