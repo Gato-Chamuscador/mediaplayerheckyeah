@@ -24,10 +24,8 @@ A lightweight Python audio player built with `pygame`, `tkinter`, and `customtki
    python3 pip install -r path/to/your/directory/requirements.txt
    ```
 ### Option 2: Download the .exe from [releases](https://github.com/Gato-Chamuscador/mediaplayerheckyeah/releases/tag/audioplayer)
->[!WARNING]
->Currently the .exe is not working, i will update the app with more features and fix it
 >[!NOTE]
->I am working on the .exe release after this update
+>I am working on the .exe fix release after this update
 
 ---
 
