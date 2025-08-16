@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, END
 from tkinter.filedialog import askdirectory, askopenfilename
 import customtkinter as ctk
+from CTkListbox import *
 from mutagen.mp3 import MP3
 import time
 import os
@@ -11,7 +12,6 @@ environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
 
 
-global filepath
 audiolength = None
 audioisplaying = False
 current_time = 0.0
@@ -22,9 +22,39 @@ paused_total = 0.0 #Total time the music has been paused
 #init pygme mixer
 pygame.mixer.init()
 
-#this function asks to open the file and loads it to the pygame mixer
-def loadfile():
-    global audiolength, filepath, pos
+
+
+#this functions ask to open the file/directory and loads it to the pygame mixer
+def loaddirfiles():
+    global dirpath, real_filename
+    dirpath = askdirectory()
+    files = [f for f in os.listdir(dirpath) if f.lower().endswith(".mp3")]
+    
+    real_filename = files
+    if files:
+        for f in files:
+            short_name = f if len(f) < 15 else f[:6] + "..."
+            listbox.insert(END, short_name)
+    else:
+        return
+
+#load selected file from list
+def load_selected(_):
+        global audiolength, pos, real_filename
+        selected = listbox.curselection()
+        if selected is None:
+            return
+        selected_index = selected
+        filename = real_filename[selected_index] 
+        full_path = os.path.join(dirpath ,filename) 
+        pygame.mixer.music.load(full_path)
+        audiolength = MP3(full_path).info.length
+        print(audiolength)
+        pos = 0
+
+
+def grabaudio():
+    global pos, audiolength
     try:
         filepath = askopenfilename(filetypes=[("Audio files", "*.mp3 *.wav")])
         #checks mp3 from the filepath and takes the audio length from it
@@ -84,13 +114,9 @@ def stopaudio():
         print(f"Cannot stop audio {e}")
 
 
-
-
 #calculate the bar progress
 def calculate_progress_bar():
-    global start_time, paused_total, audioisplaying, pos, audiolength, filepath, current_time
-    if not filepath or audiolength is None:
-        return 
+    global start_time, paused_total, audioisplaying, pos, audiolength, current_time
 
     if audioisplaying:
         #Makes the bar move
@@ -116,34 +142,38 @@ def calculate_progress_bar():
 
 def forward():
     global current_time, audiolength, audioisplaying
-    if filepath and audiolength:
-        new_pos = current_time + 10
-        if new_pos >= audiolength:
-            new_pos = audiolength - 0.1 
-        pygame.mixer.music.play(start=new_pos)
-        play_btn.configure(text = "⏸")
-        audioisplaying = True
-        global start_time, paused_total
-        start_time = time.time() - new_pos
-        paused_total = 0
-        current_time = new_pos
+    new_pos = current_time + 10
+    if new_pos >= audiolength:
+        new_pos = audiolength - 0.1 
+    pygame.mixer.music.play(start=new_pos)
+    play_btn.configure(text = "⏸")
+    audioisplaying = True
+    global start_time, paused_total
+    start_time = time.time() - new_pos
+    paused_total = 0
+    current_time = new_pos
+    if new_pos >= 60:
+        print(f"Forwarded to {int(new_pos/60)}min and {int(new_pos%60)}s")
+    else:
         print(f"Forwarded to {int(new_pos)}s")
 
 
 def rewind():
     global current_time, audiolength, audioisplaying
-    if filepath and audiolength:
-        new_pos = current_time - 10
-        if new_pos <= 0:
-            new_pos = 0 
-        pygame.mixer.music.play(start=new_pos)
-        audioisplaying = True
-        play_btn.configure(text = "⏸")
-        global start_time, paused_total
-        start_time = time.time() - new_pos
-        paused_total = 0
-        current_time = new_pos
-        print(f"Rewinded to {int(new_pos)}s")
+    new_pos = current_time - 10
+    if new_pos <= 0:
+        new_pos = 0 
+    pygame.mixer.music.play(start=new_pos)
+    audioisplaying = True
+    play_btn.configure(text = "⏸")
+    global start_time, paused_total
+    start_time = time.time() - new_pos
+    paused_total = 0
+    current_time = new_pos
+    if new_pos >= 60:
+        print(f"Forwarded to {int(new_pos/60)}min and {int(new_pos%60)}s")
+    else:
+        print(f"Forwarded to {int(new_pos)}s")
 
 
 #key controlls
@@ -171,11 +201,14 @@ def on_closing():
 #create app
 app = ctk.CTk()
 app.title("MEDIAPLAYERHECKYEAH")
-app.geometry("400x400")
+app.geometry("400x500")
 app.resizable(False, False)
 ctk.set_appearance_mode("dark")
 #buttons
-load_btn = ctk.CTkButton(app, text="Load Audio", command=loadfile)
+selectdir_btn = ctk.CTkButton(app, text="Load Directory", command= loaddirfiles)
+selectdir_btn.place(x=130, y=70)
+
+load_btn = ctk.CTkButton(app, text="Load Audio", command=grabaudio)
 load_btn.place(x=130, y=100)
 
 play_btn = ctk.CTkButton(app, text="▶", width=5, height=30, command=toggle_play_pause)
@@ -194,6 +227,10 @@ rewind_btn.place(x=130, y=150)
 progressbar = ctk.CTkProgressBar(app, orientation="horizontal")
 progressbar.place(x =110 ,y=240)
 progressbar.set(0)
+
+#listbox
+listbox = CTkListbox(app, command=load_selected)
+listbox.place(x = 110, y= 300)
 
 
 #detect if space is pressed
